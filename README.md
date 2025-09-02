@@ -16,6 +16,13 @@ cp -r down-temp/. down/ # Linux/macOS/Git Bash
 xcopy /E /I down-temp down # Windows CMD
 rm -rf down-temp # 删除临时文件夹
 
-# 到 down-temp 目录更新文件
-git pull --depth 1
+
+
+
+# 到 down-temp 目录 更新文件
+git fetch --depth 1 origin
+#【核心】强制将本地分支重置到远程分支的状态
+git reset --hard origin/master
+# 查看状态，确认已经是最新
+git status
 ```
