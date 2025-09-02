@@ -1,8 +1,9 @@
 # filecoin-server
 
-## 安装
+## 安装与更新
 
 ### 安装
+
 ```bash
 
 #在 down 文件夹的父目录下执行：
@@ -17,6 +18,7 @@ cp -r down-temp/. down/ # Linux/macOS/Git Bash
 ```
 
 ### 更新
+
 ```bash
 # 到 down-temp 目录 更新文件
 git fetch --depth 1 origin # 获取最新信息（可省略，因为pull已经fetch过了）
