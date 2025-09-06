@@ -1,0 +1,26 @@
+[API]
+  # Binding address for the Lotus API
+  #
+  # type: string
+  # env var: LOTUS_API_LISTENADDRESS
+  ListenAddress = "/ip4/0.0.0.0/tcp/12601/http"
+
+  # type: string
+  # env var: LOTUS_API_REMOTELISTENADDRESS
+  #RemoteListenAddress = "127.0.0.1:2345"
+
+  # type: Duration
+  # env var: LOTUS_API_TIMEOUT
+  #Timeout = "30s"
+
+
+[Backup]
+  # When set to true disables metadata log (.lotus/kvlog). This can save disk
+  # space by reducing metadata redundancy.
+  # 
+  # Note that in case of metadata corruption it might be much harder to recover
+  # your node if metadata log is disabled
+  #
+  # type: bool
+  # env var: LOTUS_BACKUP_DISABLEMETADATALOG
+  #DisableMetadataLog = true

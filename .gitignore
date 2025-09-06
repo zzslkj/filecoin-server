@@ -1,2 +1,5 @@
+env.sh
+config.toml
+
 logs/
 lotus/

@@ -25,3 +25,13 @@ git fetch --depth 1 origin # 获取最新信息（可省略，因为pull已经fe
 git reset --hard origin/master #【核心】强制将本地分支重置到远程分支的状态
 git status # 查看状态，确认已经是最新
 ```
+
+## 初始化
+
+- 首次下载需要执行初始化脚本
+
+```bash
+# 初始化该工作目录的配置文件
+bash setup.sh
+
+```
