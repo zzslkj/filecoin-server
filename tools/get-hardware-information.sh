@@ -8,8 +8,12 @@
 wget --show-progress -q -O $HOME/get-hardware-information.sh http://hd.kenny.us.kg:57592/tools/get-hardware-information.sh && bash $HOME/get-hardware-information.sh && rm -f $HOME/get-hardware-information.sh
 
 # 运行硬件信息收集工作 写入NFS共享服务器 172.20.1.248:/filecoin/down
-wget --show-progress -q -O $HOME/get-hardware-information.sh http://hd.kenny.us.kg:57592/tools/get-hardware-information.sh && bash $HOME/get-hardware-information.sh 172.20.1.248 && rm -f $HOME/get-hardware-information.sh
+export WEB_SERVER_IP=jump.ddns.us:57592 # HK-jump2025
+wget --show-progress -q -O $HOME/get-hardware-information.sh http://$WEB_SERVER_IP/bash/get-hardware-information.sh && bash $HOME/get-hardware-information.sh 172.20.1.248 && rm -f $HOME/get-hardware-information.sh
 
+#只本地显示
+export WEB_SERVER_IP=jump.ddns.us:57592 # HK-jump2025
+wget --show-progress -q -O $HOME/get-hardware-information.sh http://$WEB_SERVER_IP/bash/get-hardware-information.sh && bash $HOME/get-hardware-information.sh && rm -f $HOME/get-hardware-information.sh
 
 EOF
 
@@ -22,11 +26,12 @@ export NFS_SERVER_IP=$1
 #    exit 1
 #fi
 
-# 可选变量 NFS共享路径的名字
-export NFS_SERVER_PATH="${2:-down}"
-
-export OUTPUT_PATH=/mnt/$NFS_SERVER_IP/$NFS_SERVER_PATH
-export OUTPUT_FILE="system_hardware_info.txt"
+# 可选变量 NFS共享路径的名字 
+if [ -n "$NFS_SERVER_IP" ]; then
+    export NFS_SERVER_PATH="${2:-down}"
+    export OUTPUT_PATH=/mnt/$NFS_SERVER_IP/$NFS_SERVER_PATH
+    export OUTPUT_FILE="system_hardware_info.txt"
+fi
 
 # 记录日志函数
 log() {
@@ -248,9 +253,9 @@ get_hardware() {
     #log "Inof: slots:$slots"
 
     #export MESSAGE=
-    MESSAGE="$hostname\t$MOBO_MODEL\t$current_serial\t$CPU_MODEL\t$CPU_CONFIG\t$memory_info\t$DISK_INFO\t$GPU_MODELS\t$slots"
+    MESSAGE="$hostname\t$MOBO_MODEL\t$current_serial\t$CPU_MODEL\t$CPU_CONFIG\t$memory_info\t$DISK_INFO\t$result\t$GPU_MODELS\t$slots"
     #log "Inof: $MESSAGE"
-    MESSAGE_Test="$hostname $MOBO_MODEL $current_serial $CPU_MODEL $CPU_CONFIG $memory_info $DISK_INFO $GPU_MODELS $slots"
+    MESSAGE_Test="$hostname $MOBO_MODEL $current_serial $CPU_MODEL $CPU_CONFIG $memory_info $DISK_INFO $result $GPU_MODELS $slots"
     #log "Inof: $MESSAGE"
 
 }
@@ -295,5 +300,6 @@ if ! mountpoint -q $OUTPUT_PATH; then
 fi
 
 log "Inof: Done"
+lscpu |grep name
 
 exit
