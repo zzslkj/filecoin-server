@@ -5,7 +5,7 @@ files=(
     "config/config.toml"
     "tools/check_miner/env.sh"
 )
-
+# 初始化配置文件，如果不存在则从示例文件创建， 否则删除示例文件
 echo "检查配置文件..."
 for target in "${files[@]}"; do
     if [ ! -f "$target" ] && [ -f "${target}.example" ]; then
